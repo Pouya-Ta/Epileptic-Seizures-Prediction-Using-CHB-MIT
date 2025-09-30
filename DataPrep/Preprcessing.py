@@ -17,3 +17,12 @@ import json, numpy as np
 # -----------------------------------------------------------------------------
 DATASET_ROOT = r"D:\Project\CHB-MIT\Original_dataset\CHB-MIT"  # your input root
 OUT_ROOT     = r"F:\Projects\CHB_MIT_topographic_pr\Processed" # where to write
+
+# canonical 21 bipolar pairs to KEEP (drop any others after dedupe)
+CANONICAL_21 = [
+ 'FP1-F7', 'F7-T7', 'T7-P7', 'P7-O1',
+ 'FP1-F3', 'F3-C3', 'C3-P3', 'P3-O1',
+ 'FP2-F4', 'F4-C4', 'C4-P4', 'P4-O2',
+ 'FP2-F8', 'F8-T8', 'T8-P8', 'P8-O2',
+ 'FZ-CZ', 'CZ-PZ', 'P7-T7', 'T7-FT9', 'FT9-FT10', 'FT10-T8'
+]
