@@ -16,3 +16,4 @@ import json, numpy as np
 # --------------------------- USER CONFIG (edit) -------------------------------
 # -----------------------------------------------------------------------------
 DATASET_ROOT = r"D:\Project\CHB-MIT\Original_dataset\CHB-MIT"  # your input root
+OUT_ROOT     = r"F:\Projects\CHB_MIT_topographic_pr\Processed" # where to write
