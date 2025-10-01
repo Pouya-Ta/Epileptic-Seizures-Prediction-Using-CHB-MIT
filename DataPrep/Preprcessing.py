@@ -26,3 +26,14 @@ CANONICAL_21 = [
  'FP2-F8', 'F8-T8', 'T8-P8', 'P8-O2',
  'FZ-CZ', 'CZ-PZ', 'P7-T7', 'T7-FT9', 'FT9-FT10', 'FT10-T8'
 ]
+
+# band config for tensors
+BANDS = [
+    ("delta", (0.0, 4.0)),
+    ("theta", (4.0, 8.0)),
+    ("alpha", (8.0, 12.0)),
+    ("beta",  (12.0, 30.0)),
+    ("gamma", (30.0, 45.0)),
+]
+TENSOR_RES = 64
+NORMALIZE  = "relative"  # "none" | "relative" | "log" | "zscore"
