@@ -36,3 +36,5 @@ BANDS = [
     ("gamma", (30.0, 45.0)),
 ]
 
+TENSOR_RES = 64
+NORMALIZE  = "relative"  # "none" | "relative" | "log" | "zscore"
