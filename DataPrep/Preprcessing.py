@@ -41,3 +41,4 @@ NORMALIZE  = "relative"  # "none" | "relative" | "log" | "zscore"
 
 # window policy
 WIN_LEN_S    = 2.0       # 2-second windows
+WIN_STRIDE_S = 2.0       # non-overlapping
