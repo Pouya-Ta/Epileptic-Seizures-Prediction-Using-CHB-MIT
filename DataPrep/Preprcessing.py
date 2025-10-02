@@ -44,3 +44,7 @@ WIN_LEN_S    = 2.0       # 2-second windows
 WIN_STRIDE_S = 2.0       # non-overlapping
 PRE_ICTAL_START_OFFSET = 40*60  # 40 min before onset
 PRE_ICTAL_END_OFFSET   = 20*60  # 20 min before onset
+RANDOM_BASELINE_LEN    = 20*60  # 20 minutes if no seizure in file
+
+# RNG seed for reproducible random baselines (derived from filename)
+RANDOM_SEED = 1337
