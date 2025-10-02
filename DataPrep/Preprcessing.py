@@ -38,3 +38,6 @@ BANDS = [
 
 TENSOR_RES = 64
 NORMALIZE  = "relative"  # "none" | "relative" | "log" | "zscore"
+
+# window policy
+WIN_LEN_S    = 2.0       # 2-second windows
