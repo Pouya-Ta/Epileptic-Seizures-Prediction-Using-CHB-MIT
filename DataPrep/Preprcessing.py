@@ -43,3 +43,4 @@ NORMALIZE  = "relative"  # "none" | "relative" | "log" | "zscore"
 WIN_LEN_S    = 2.0       # 2-second windows
 WIN_STRIDE_S = 2.0       # non-overlapping
 PRE_ICTAL_START_OFFSET = 40*60  # 40 min before onset
+PRE_ICTAL_END_OFFSET   = 20*60  # 20 min before onset
