@@ -48,3 +48,8 @@ RANDOM_BASELINE_LEN    = 20*60  # 20 minutes if no seizure in file
 
 # RNG seed for reproducible random baselines (derived from filename)
 RANDOM_SEED = 1337
+
+# -----------------------------------------------------------------------------
+# -------------------------- HELPERS: JSON logging -----------------------------
+# -----------------------------------------------------------------------------
+# cache: patient_dir -> parsed summary dict
