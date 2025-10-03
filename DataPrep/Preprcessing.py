@@ -53,3 +53,4 @@ RANDOM_SEED = 1337
 # -------------------------- HELPERS: JSON logging -----------------------------
 # -----------------------------------------------------------------------------
 # cache: patient_dir -> parsed summary dict
+_SUMMARY_CACHE: dict[Path, dict] = {}
