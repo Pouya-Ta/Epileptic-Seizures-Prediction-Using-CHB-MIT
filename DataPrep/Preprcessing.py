@@ -80,3 +80,7 @@ def find_and_parse_patient_summary(patient_dir: Path) -> dict:
         parsed = parse_chb_summary(candidates[0])
         _SUMMARY_CACHE[patient_dir] = parsed
         return parsed
+
+    # Nothing found
+    _SUMMARY_CACHE[patient_dir] = {}
+    return {}
