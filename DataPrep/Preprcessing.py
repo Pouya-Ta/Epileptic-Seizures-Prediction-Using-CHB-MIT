@@ -54,3 +54,12 @@ RANDOM_SEED = 1337
 # -----------------------------------------------------------------------------
 # cache: patient_dir -> parsed summary dict
 _SUMMARY_CACHE: dict[Path, dict] = {}
+
+
+def find_and_parse_patient_summary(patient_dir: Path) -> dict:
+    """
+    Look for a per-patient summary file inside `patient_dir`.
+    Typical name: chb01-summary.txt, but we also accept any *summary*.txt.
+    Returns an empty dict if nothing is found.
+    Results are cached per patient folder.
+    """
