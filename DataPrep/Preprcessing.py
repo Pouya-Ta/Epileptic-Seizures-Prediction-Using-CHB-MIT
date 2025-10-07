@@ -63,3 +63,20 @@ def find_and_parse_patient_summary(patient_dir: Path) -> dict:
     Returns an empty dict if nothing is found.
     Results are cached per patient folder.
     """
+
+    if patient_dir in _SUMMARY_CACHE:
+        return _SUMMARY_CACHE[patient_dir]
+
+    # Common exact name first (e.g., chb01-summary.txt)
+    exact = patient_dir / f"{patient_dir.name}-summary.txt"
+    if exact.exists():
+        parsed = parse_chb_summary(exact)
+        _SUMMARY_CACHE[patient_dir] = parsed
+        return parsed
+
+    # Fallback: any *summary*.txt in the folder
+    candidates = sorted(patient_dir.glob("*summary*.txt"))
+    if candidates:
+        parsed = parse_chb_summary(candidates[0])
+        _SUMMARY_CACHE[patient_dir] = parsed
+        return parsed
