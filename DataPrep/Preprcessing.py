@@ -89,3 +89,11 @@ def _ensure_dir(p: Path):
     p.mkdir(parents=True, exist_ok=True)
     return p
 
+def _load_json(path: Path) -> dict:
+    if path.exists():
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
