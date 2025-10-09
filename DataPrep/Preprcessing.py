@@ -97,3 +97,5 @@ def _load_json(path: Path) -> dict:
         except Exception:
             return {}
     return {}
+
+class NpEncoder(json.JSONEncoder):
