@@ -84,3 +84,8 @@ def find_and_parse_patient_summary(patient_dir: Path) -> dict:
     # Nothing found
     _SUMMARY_CACHE[patient_dir] = {}
     return {}
+
+def _ensure_dir(p: Path):
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
