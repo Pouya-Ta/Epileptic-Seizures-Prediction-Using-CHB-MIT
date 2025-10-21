@@ -115,3 +115,6 @@ def update_json(json_path: Path, key: str, data):
     obj[str(key)] = _to_py(data)     # sanitize
     _ensure_dir(json_path.parent)
 
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, indent=2, ensure_ascii=False, cls=NpEncoder)
+
