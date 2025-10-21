@@ -109,3 +109,9 @@ class NpEncoder(json.JSONEncoder):
         if isinstance(obj, (np.ndarray,)):
             return obj.tolist()
         return super().default(obj)
+
+def update_json(json_path: Path, key: str, data):
+    obj = _load_json(json_path)
+    obj[str(key)] = _to_py(data)     # sanitize
+    _ensure_dir(json_path.parent)
+
