@@ -117,3 +117,15 @@ def update_json(json_path: Path, key: str, data):
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=2, ensure_ascii=False, cls=NpEncoder)
 
+def _to_py(obj):
+    """Recursive converter to pure Python types (safety net)."""
+    if isinstance(obj, dict):
+        return {str(k): _to_py(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [ _to_py(v) for v in obj ]
+    if isinstance(obj, (np.integer,)):  return int(obj)
+    if isinstance(obj, (np.floating,)): return float(obj)
+    if isinstance(obj, (np.bool_,)):    return bool(obj)
+    if isinstance(obj, (np.ndarray,)):  return obj.tolist()
+    return obj
+
