@@ -129,3 +129,47 @@ def _to_py(obj):
     if isinstance(obj, (np.ndarray,)):  return obj.tolist()
     return obj
 
+# -----------------------------------------------------------------------------
+# -------------------------- SUMMARY (.txt) PARSER -----------------------------
+# (Uses the exact robust parser we discussed; minor tweaks only)
+# -----------------------------------------------------------------------------
+def parse_chb_summary(txt_path: str | Path) -> Dict[str, Dict[str, Any]]:
+    out: Dict[str, Dict[str, Any]] = {}
+    cur: Dict[str, Any] | None = None
+    cur_file: str | None = None
+    r_name   = re.compile(r'^File Name:\s*(\S+)\s*$')
+    r_fstart = re.compile(r'^File Start Time:\s*([0-9:]+)\s*$')
+    r_fend   = re.compile(r'^File End Time:\s*([0-9:]+)\s*$')
+    r_nsz    = re.compile(r'^Number of Seizures in File:\s*(\d+)\s*$')
+    r_ss     = re.compile(r'^Seizure Start Time:\s*([0-9]+)\s*seconds\s*$')
+    r_se     = re.compile(r'^Seizure End Time:\s*([0-9]+)\s*seconds\s*$')
+
+    with open(txt_path, 'r', encoding='utf-8', errors='ignore') as f:
+        pending_start = None
+        for line in f:
+            line = line.strip()
+            m = r_name.match(line)
+            if m:
+                if cur_file and cur:
+                    out[cur_file] = cur
+                cur_file = m.group(1)
+                cur = {"file_start_time": None, "file_end_time": None,
+                       "n_seizures": 0, "seizures": []}
+                pending_start = None
+                continue
+            if not cur:
+                continue
+            if (m := r_fstart.match(line)): cur["file_start_time"] = m.group(1); continue
+            if (m := r_fend.match(line)):   cur["file_end_time"]   = m.group(1); continue
+            if (m := r_nsz.match(line)):    cur["n_seizures"]      = int(m.group(1)); continue
+            if (m := r_ss.match(line)):     pending_start          = int(m.group(1)); continue
+            if (m := r_se.match(line)):
+                end_sec = int(m.group(1))
+                if pending_start is not None:
+                    cur["seizures"].append((pending_start, end_sec))
+                    pending_start = None
+                continue
+        if cur_file and cur:
+            out[cur_file] = cur
+    return out
+
