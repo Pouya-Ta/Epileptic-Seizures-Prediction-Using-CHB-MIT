@@ -173,3 +173,25 @@ def parse_chb_summary(txt_path: str | Path) -> Dict[str, Dict[str, Any]]:
             out[cur_file] = cur
     return out
 
+def preictal_windows_for_file(
+    seizures: List[Tuple[int,int]],
+    file_len_sec: int,
+    start_offset: int = PRE_ICTAL_START_OFFSET,
+    end_offset: int   = PRE_ICTAL_END_OFFSET
+) -> List[Tuple[int,int]]:
+    wins = []
+    for (t0, _) in seizures:
+        s = max(0, t0 - start_offset)
+        e = max(0, t0 - end_offset)
+        if e > s:
+            wins.append((s, e))
+    # merge overlaps
+    wins.sort()
+    merged = []
+    for s,e in wins:
+        if not merged or s > merged[-1][1]:
+            merged.append([s,e])
+        else:
+            merged[-1][1] = max(merged[-1][1], e)
+    # clip to file length
+    return [(max(0,int(s)), min(file_len_sec,int(e))) for s,e in merged if int(e) > 0]
